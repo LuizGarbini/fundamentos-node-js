@@ -1,5 +1,9 @@
-const a = 10
-const b = 5
-const result = a + b
+import http from "node:http";
 
-console.log("Resultado: ", result)
+const server = http.createServer((request, response) => {
+  return response.end("Hello World!")
+});
+
+
+/* Aqui a função fica escutando o servidor */
+server.listen(3333)
