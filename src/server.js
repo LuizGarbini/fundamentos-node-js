@@ -4,7 +4,7 @@ const server = http.createServer((request, response) => {
   // Desestruturação do method
   const { method } = request;
 
-  return response.end("Método: " + method);
+  return response.writeHead(200).end("Método: " + method);
 });
 
 /* Aqui a função fica escutando o servidor */
