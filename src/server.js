@@ -1,28 +1,21 @@
 import http from "node:http";
+import { jsonBodyHandler } from "./middlewares/jsonBodyHandler.js";
 
 const server = http.createServer(async (request, response) => {
   // Desestruturação do method
   const { method, url } = request;
 
+  await jsonBodyHandler(request, response)
+
   // Definindo condições para o método GET
-  if(method === "GET" && url === "/products") {
-    return response.end("Lista de produtos!")
+  if (method === "GET" && url === "/products") {
+    return response.end("Lista de produtos!");
   }
 
   // Definindo condições para o método POST
-  if(method === "POST" && url === "/products") {
-    // Adicionando os chunks abaixo em um array
-    const buffers = []
-
-    // Pegando o body da requisição em pedaços (chunks)
-    for await (const chunk of request){
-      buffers.push(chunk)
-    }
-
-    // Remontando os chunks e convertendo para string
-    console.log(Buffer.concat(buffers).toString())
-
-    return response.writeHead(201).end("Produto cadastrado!")
+  if (method === "POST" && url === "/products") {
+    console.log(request.body)
+    return response.writeHead(201).end(JSON.stringify(request.body));
   }
 
   // Caso não entre em nenhum dos ifs acima ele da como rota não encontrada.
