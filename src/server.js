@@ -11,12 +11,15 @@ const server = http.createServer(async (request, response) => {
 
   // Definindo condições para o método POST
   if(method === "POST" && url === "/products") {
+    // Adicionando os chunks abaixo em um array
     const buffers = []
 
+    // Pegando o body da requisição em pedaços (chunks)
     for await (const chunk of request){
       buffers.push(chunk)
     }
 
+    // Remontando os chunks e convertendo para string
     console.log(Buffer.concat(buffers).toString())
 
     return response.writeHead(201).end("Produto cadastrado!")
