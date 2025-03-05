@@ -1,6 +1,6 @@
 import http from "node:http";
 
-const server = http.createServer((request, response) => {
+const server = http.createServer(async (request, response) => {
   // Desestruturação do method
   const { method, url } = request;
 
@@ -11,6 +11,14 @@ const server = http.createServer((request, response) => {
 
   // Definindo condições para o método POST
   if(method === "POST" && url === "/products") {
+    const buffers = []
+
+    for await (const chunk of request){
+      buffers.push(chunk)
+    }
+
+    console.log(Buffer.concat(buffers).toString())
+
     return response.writeHead(201).end("Produto cadastrado!")
   }
 
