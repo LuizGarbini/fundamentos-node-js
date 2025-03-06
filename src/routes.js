@@ -1,3 +1,5 @@
+import { parseRoutePath } from "./utils/parseRoutePath.js";
+
 export const routes = [
   {
     method: "GET",
@@ -20,4 +22,7 @@ export const routes = [
       return response.end("Removido!");
     },
   }
-];
+].map((route) => ({
+  ...route,
+  path: parseRoutePath(route.path),
+}));
