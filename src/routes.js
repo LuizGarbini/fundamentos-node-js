@@ -5,7 +5,7 @@ export const routes = [
     method: "GET",
     path: "/products",
     controller: (request, response) => {
-      return response.end("Lista de produtos!");
+      return response.end(JSON.stringify(request.query));
     },
   },
   {
@@ -21,7 +21,7 @@ export const routes = [
     controller: (request, response) => {
       return response.end("Produto removido com ID:" + request.params.id);
     },
-  }
+  },
 ].map((route) => ({
   ...route,
   path: parseRoutePath(route.path),
